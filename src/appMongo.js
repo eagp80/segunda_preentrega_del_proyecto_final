@@ -55,7 +55,7 @@ class AppMongo {
 
   listen() {
     this.appMongo.listen(this.port, () => {
-      console.log("Rutas disponibles y metodos asociados para servidor con Mongo-Atlas:");
+      console.log(`Rutas disponibles y metodos asociados para servidor con Mongo-Atlas en puerto ${this.port}:`);
       displayRoutes(this.appMongo);
       console.log(`===================================================`);
       console.log(`================== COURSE: ${CURSO} ==================`);

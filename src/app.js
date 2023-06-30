@@ -1,7 +1,7 @@
 import express from "express";
 import {Server} from 'socket.io';
 //const cors = require("cors");
-//const displayRoutes = require("express-routemap");
+import displayRoutes from "express-routemap";
 import { NODE_ENV, PORT, API_VERSION, CURSO } from "./config/config.js";
 import { mongoDBConnection } from "./db/mongo.config.js";
 import handlebars from "express-handlebars";
@@ -39,6 +39,8 @@ app.use('/',viewsRouter);//al llegar la ruta especificada lo procesa con viewsRo
 
 const serverHTTP = app.listen(8081, ()=>{
        console.log("Servidor con file-system en puerto 8081");
+       console.log("Rutas disponibles con file-system en puerto 8081:");
+       displayRoutes(app);
        console.log("=================================================");
        console.log("=================================================");
 });
