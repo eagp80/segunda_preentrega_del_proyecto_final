@@ -1,0 +1,93 @@
+import express from "express";
+import {Server} from 'socket.io';
+//const cors = require("cors");
+//const displayRoutes = require("express-routemap");
+import { NODE_ENV, PORT, API_VERSION, CURSO } from "./config/config.js";
+import { mongoDBConnection } from "./db/mongo.config.js";
+import handlebars from "express-handlebars";
+import ProductManager from './dao/managers/productManager.js'
+import productsRouter from './routes/products.router.js';
+import cartsRouter from './routes/carts.router.js';
+import viewsRouter from './routes/views.router.js';
+import __dirname from './utils.js'
+import AppMongo from './appMongo.js'
+import CartsMongoRoute from './routes/cartsMongo.router.js';
+import ProductsMongoRoute from './routes/productsMongo.router.js';
+import ViewsMongoRoutes from './routes/viewsMongo.router.js'
+
+
+
+
+
+const app = express();
+//FLUJO DE TRABAJO..
+app.use(express.json()); //permite leer json en las peticiones
+//middlewar intercepta la peticion verifica si esta en json, covierte y continua
+app.use(express.urlencoded({extended:true}));// permite tener el objeto codificado desde url
+//middlewar intercepta que este codificada desde una url si no continua
+app.use(express.static(`${__dirname}/public`));//lo que estara disponible, publico
+
+app.use('/api/products',productsRouter);//al llegar la ruta especificada lo procesa con productsRouter
+app.use('/api/carts',cartsRouter);//idem
+
+
+app.engine('handlebars', handlebars.engine());//arrancamos y le ponemos un alias a el motor 
+app.set('views', `${__dirname}/views`);//le decimos a app donde estaran las vistas
+app.set('view engine', 'handlebars');//le decimos a app que el motor de vistas es handlebars definido dos lineas antes
+
+app.use('/',viewsRouter);//al llegar la ruta especificada lo procesa con viewsRouter
+
+const serverHTTP = app.listen(8081, ()=>{
+       console.log("Servidor con file-system en puerto 8081");
+       console.log("=================================================");
+       console.log("=================================================");
+});
+const io= new Server (serverHTTP);
+
+
+
+const productManager = new ProductManager("./products.json");//en directorio de proyecto
+const products = productManager.getProducts();
+productManager.products=products;
+
+io.on('connection', socket=>{
+       console.log("cliente conectado");
+       //io.emit('log',products);  
+
+       socket.on('message', data => {
+              const id = products.length + 1;
+               //con este metodo solicitamos crear producto
+              const {title, description, code,price,status, stock, category, thumbnails, image} = data;       
+              productManager.addProduct(title, description, code,price,status, stock, category, thumbnails);
+              //res.send({status:"ok", message :"Producto añadido" });
+              // const product = { id, ...data}
+              // products.unshift(product);
+              // fs.writeFileSync('./products.json',JSON.stringify(products, null, '\t'))
+              data["id"]=ProductManager.contador-1;
+              console.log("El siguiente producto fue creado desde cliente conectado por socket web");
+              console.log(data);
+              io.emit('product', data)
+          })            
+       // socket.on('post',data=>{
+
+       // io.emit('messageLogs', products)
+       // })
+       socket.on('put',data=>{
+       
+       io.emit('messageLogs', products)
+})
+// socket.on('authenticated',data=>{
+//        socket.emit('messageLogs', messages);
+//        socket.broadcast.emit('newUserConnected', data);
+// });
+});
+
+
+const appMongo = new AppMongo([
+       //new BaseRoute(),
+       new CartsMongoRoute(),
+       new ProductsMongoRoute(),
+       new ViewsMongoRoutes(),//ojo
+     ]);
+     
+appMongo.listen();
