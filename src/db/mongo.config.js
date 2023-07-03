@@ -6,8 +6,8 @@ const configConnection = {
   //url: `mongodb://127.0.0.1:27017/estudiantes`,
   url: DB_CNN ?? `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`,
   options: {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useNewUrlParser: true,//parseo de la url automaticamente
+    useUnifiedTopology: true,//topologia como son los nodos
   },
 };
 
