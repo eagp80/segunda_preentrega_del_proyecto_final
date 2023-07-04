@@ -13,7 +13,7 @@ Deberás entregar el proyecto que has venido armando, cambiando persistencia en 
 
 ### Objetivos generales
 
-- Contarás con Mongo como sistema de persistencia principal.
+- Contarás con Mongo como sistema de persistencia principal. ((Hecho)).
 - Tendrás definidos todos los endpoints para poder trabajar con productos y carritos.
 
 ### Objetivos específicos
@@ -23,13 +23,13 @@ Deberás entregar el proyecto que has venido armando, cambiando persistencia en 
 
 ### Formato
 
-- Link al repositorio de Github con el proyecto completo, sin la carpeta de Node_modules.
+- Link al repositorio de Github con el proyecto completo, sin la carpeta de Node_modules. ((Hecho)).
 
 ### Sugerencias
 
 - Permitir comentarios en el archivo
-- La lógica del negocio que ya tienes hecha no debería cambiar, sólo su persistencia. 
-- Los nuevos endpoints deben seguir la misma estructura y lógica que hemos seguido. 
+- La lógica del negocio que ya tienes hecha no debería cambiar, sólo su persistencia. ((Hecho)).
+- Los nuevos endpoints deben seguir la misma estructura y lógica que hemos seguido. ((Hecho)).
 
 ### Se debe entregar
 
@@ -60,7 +60,7 @@ Deberás entregar el proyecto que has venido armando, cambiando persistencia en 
     - PUT api/carts/:cid deberá actualizar el carrito con un arreglo de productos con el formato especificado arriba.
     - PUT api/carts/:cid/products/:pid deberá poder actualizar SÓLO la cantidad de ejemplares del producto por cualquier cantidad pasada desde req.body.
     - DELETE api/carts/:cid deberá eliminar todos los productos del carrito.
-    - Esta vez, para el modelo de Carts, en su propiedad products, el id de cada producto generado dentro del array tiene que hacer referencia al modelo de Products. Modificar la ruta /:cid para que al traer todos los productos, los traiga completos mediante un “populate”. De esta manera almacenamos sólo el Id, pero al solicitarlo podemos desglosar los productos asociados. 
+    - Esta vez, para el modelo de Carts, en su propiedad products, el id de cada producto generado dentro del array tiene que hacer referencia al modelo de Products. Modificar la ruta /:cid para que al traer todos los productos, los traiga completos mediante un “populate”. De esta manera almacenamos sólo el Id, pero al solicitarlo podemos desglosar los productos asociados. ((Hecho)).
 - Crear una vista en el router de views ‘/products’ para visualizar todos los productos con su respectiva paginación. Cada producto mostrado puede resolverse de dos formas:
     - Llevar a una nueva vista con el producto seleccionado con su descripción completa, detalles de precio, categoría, etc. Además de un botón para agregar al carrito.
     - Contar con el botón de “agregar al carrito” directamente, sin necesidad de abrir una página adicional con los detalles del producto.
