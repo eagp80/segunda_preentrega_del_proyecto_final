@@ -21,7 +21,7 @@ import ViewsMongoRoutes from './routes/viewsMongo.router.js'
 
 const app = express();
 //FLUJO DE TRABAJO..
-app.use(express.json()); //permite leer json en las peticiones (req.body)
+app.use(express.json()); //permite leer json en las peticiones (en req.body)
 //middlewar intercepta la peticion verifica si esta en json, covierte y continua
 app.use(express.urlencoded({extended:true}));// permite tener el objeto codificado desde url (formularios)
 //middlewar intercepta que este codificada desde una url si no continua

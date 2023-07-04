@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
-const productMongoCollection = "Product"; //en otra parte se pone en minusculas y mongo le agrega una "s"
+const productMongoCollection = "products"; //en otra parte se pone en minusculas y mongo le agrega una "s"
+//toco cambiar "Product" por "products" para que me hiciera population
 
 const productsMongoSchema = new mongoose.Schema({
   title: {
