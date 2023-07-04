@@ -21,7 +21,7 @@ class ViewsMongoRoutes {
       const mappedProductsMongo = productsMongo.map((p) => {
         return {
           title: p.title,
-          price: p.price,         
+          price: p.price,
         };
       });
       res.render("productsMongo", { productsMongo: mappedProductsMongo });
@@ -29,12 +29,38 @@ class ViewsMongoRoutes {
 
     this.router.get(`${this.path}/cartsmongo`, async (req, res) => {
       // let courses = [];
-      const cartsMongo = await this.cartsMongoManager.getAllCartsMongo();
-      const cartsMongoMapped = cartsMongo.map((cartMongo) => {
+      let i = 0;
+      const cartsMongo = await this.cartsMongoManager.getAllCartsMongoPopulate();
+
+      const cartsMongoMapped = cartsMongo.map((cartMongo, index) => {
         return {
-          products: cartMongo.products,
-        };
-      });
+          i: index+1,
+          // products: cartMongo.products.map(prod => prod.product.title)
+
+          products: cartMongo.products.map(prod => {
+            return {
+              title: prod.product.title,
+              qty: prod.quantity
+            }
+          })
+
+        }
+      })
+
+      console.log(JSON.stringify(cartsMongoMapped))
+      // const cartsMongoMapped = cartsMongo.map((cartMongo,index) => {       
+      //   let arrAux=[];
+      //   let p= cartsMongo[index].products.map(obj=>obj.product);
+      //   //arrAux.push(p);
+      //   arrAux=p;
+      //   console.log(arrAux);
+      //   return {
+      //     products: arrAux,          
+      //     i: index+1          
+      //   };
+      // }); 
+      cartsMongoMapped.map(item =>  console.log("Carrito:",item.i,item.products))
+     
       res.render("cartsMongo", { cartsMongo: cartsMongoMapped });
     });
   }

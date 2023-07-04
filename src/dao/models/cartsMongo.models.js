@@ -5,14 +5,14 @@ const cartsMongoCollection = 'Cart';//en otra parte se pone en minusculas y mong
 const cartsMongoSchema = new Schema({
   products: {
     type: [
-          {
-            product: {
-              type: Types.ObjectId,
-              ref: "products"
-            },
-            quantity: Number
-          }
-       ],
+      {
+        product: {
+          type: Types.ObjectId,
+          ref: "products"
+        },
+        quantity: Number
+      }
+    ],
     default: []
   }
 });

@@ -14,6 +14,19 @@ class CartsMongoManager {
     }
   };
 
+  getAllCartsMongoPopulate = async () => {
+    try {
+      const allCartsMongo = await cartsMongoModel.find({}).populate('products.product');
+
+      return allCartsMongo;
+    } catch (err) {
+      console.log(
+        "🚀 ~ file: carts.manager.js:19 ~ CartsMongoManager ~ getAllCartsMongoPopulate= ~ err:",
+        err
+      );
+    }
+  };
+
   getCartMongoById = async (id) => {
     try {
       return await cartsMongoModel.findById({ _id: id }).populate('products.product');
