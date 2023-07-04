@@ -29,7 +29,9 @@ class CartsMongoRoutes {
         //   quantity:0}]         
         // });
 
-        const cartMongo = {"products": [{"product": myObjectId, "quantity":0 }]};
+        //const cartMongo = {"products": [{"product": myObjectId, "quantity":0 }]};
+        const cartMongo = {"products": []};
+
         console.log("cartMongo es:");
         console.log(cartMongo);
 
@@ -115,7 +117,9 @@ class CartsMongoRoutes {
         }//se cambio por throw,
 
         //***** 2. si producto es el Id="000000000000000000000000" reemplazarlo */
-        if(cartMongoData.products[0].product==new ObjectId("000000000000000000000000").toString()){
+        //if(cartMongoData.products[0].product==new ObjectId("000000000000000000000000").toString()){
+        if(cartMongoData.products==[]){
+
             //cartMongoData.cart.products.push( productMongoId);
             //console.log("verificado con exito Id 0000");
             //console.log(cartMongoId);
@@ -125,7 +129,7 @@ class CartsMongoRoutes {
             console.log("entro en 2");
 
 
-            cartsMongoModel.findByIdAndUpdate(cartMongoId, { products: [{product: productNewId, quantity:cartMongoData.products[0].quantity+1}] }, { new: true })
+            cartsMongoModel.findByIdAndUpdate(cartMongoId, { products: [{product: productNewId, quantity: 1}] }, { new: true })
             .then(updatedCart => {//lo que devuelve lo muestro en consola
               console.log(updatedCart);
             })
@@ -168,7 +172,7 @@ class CartsMongoRoutes {
                   console.error("error Efren3",error);
                   });           
             
-            } else {//else a if 3,  situacion 4 . si el carrrito existe y no tiene el producto ***********TRABAJAR ESTO*********************
+            } else {//else a if 3,  situacion 4 . si el carrrito existe y no tiene el producto 
                   console.log("entrooooo en 4")
 
                   const productNewId= new ObjectId(productMongoId);
@@ -179,8 +183,7 @@ class CartsMongoRoutes {
                   })
                   .catch(error => {
                   console.error("error Efren4",error);
-                  });               
-              //jjjjjjjj
+                  });             
             }// fin else de situacion 4
         }//fin else del if 2, situacion 3
         return res.status(201).json({
