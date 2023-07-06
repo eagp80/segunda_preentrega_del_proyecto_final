@@ -29,7 +29,7 @@ class CartsMongoManager {
 
   getCartMongoById = async (id) => {
     try {
-      return await cartsMongoModel.findById({ _id: id }).populate('products.product');
+      return await cartsMongoModel.findById({ _id: id });
     } catch (err) {
       console.log(
         "🚀 ~ file: cartsMongo.manager.js:21 ~ CartsMongoManager ~ getCartMongoById= ~ err:",
@@ -38,6 +38,17 @@ class CartsMongoManager {
     }
   };
 
+  getCartMongoByIdPopulate = async (id) => {
+    try {
+      return await cartsMongoModel.findById({ _id: id }).populate('products.product');
+    } catch (err) {
+      console.log(
+        "🚀 ~ file: cartsMongo.manager.js:21 ~ CartsMongoManager ~ getCartMongoById= ~ err:",
+        err
+      );
+    }
+  };
+  
   createCartMongo = async (cartMongoBody) => {
     try {
       // const checkCartMongo = await cartsMongoModel.findOne({
