@@ -212,15 +212,12 @@ class CartsMongoRoutes {
     this.router.delete(`${this.path}/:cartMongoId`, async (req, res) => {
       try{
         const { cartMongoId} = req.params;
-
-
       } catch (error) {
         console.log(
           "🚀 ~ file: cartsMongo.router.js:196 ~ CartsMongoRoutes ~ this.router.delete ~ error:",
           error
         );
       }
-
       return res.json({ message: `cartsMongo DELETE no implementado aun` });
     });
 

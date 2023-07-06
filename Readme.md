@@ -56,7 +56,7 @@ Deberás entregar el proyecto que has venido armando, cambiando persistencia en 
     ```
 - Se deberá poder buscar productos por categoría o por disponibilidad, y se deberá poder realizar un ordenamiento de estos productos de manera ascendente o descendente por precio.
 - Además, agregar al router de carts los siguientes endpoints:
-    - DELETE api/carts/:cid/products/:pid deberá eliminar del carrito el producto seleccionado.
+    - DELETE api/carts/:cid/products/:pid deberá eliminar del carrito el producto seleccionado ((Hecho)).
     - PUT api/carts/:cid deberá actualizar el carrito con un arreglo de productos con el formato especificado arriba.
     - PUT api/carts/:cid/products/:pid deberá poder actualizar SÓLO la cantidad de ejemplares del producto por cualquier cantidad pasada desde req.body.
     - DELETE api/carts/:cid deberá eliminar todos los productos del carrito.
@@ -72,8 +72,8 @@ Deberás entregar el proyecto que has venido armando, cambiando persistencia en 
 |Aspectos a evaluar|	Descripción	|
 | ------ | ------ |
 |Consigna|	Profesionalizar las consultas actuales de nuestro servidor express, ajustando la forma de solicitar los productos y agregando nuevos endpoints a los carritos.|	
-|Productos|	Los productos se visualizan correctamente en la vista de productos, y la misma cuenta con una paginación funcional. Además, pueden filtrarse por categoría o por disponibilidad, y ordenarse por precio de manera ascendente o descendente. |
-|Carrito|   Los métodos DELETE eliminan correctamente los productos del carrito. Los métodos PUT actualizan correctamente los elementos del carrito. Se realiza correctamente un populate al momento de obtener un carrito. ((Hecho)). |
+|Productos|	Los productos se visualizan correctamente en la vista de productos ((Hecho)), y la misma cuenta con una paginación funcional. Además, pueden filtrarse por categoría o por disponibilidad, y ordenarse por precio de manera ascendente o descendente. |
+|Carrito|   Los métodos DELETE eliminan correctamente los productos del carrito((Hecho)). Los métodos PUT actualizan correctamente los elementos del carrito. Se realiza correctamente un populate al momento de obtener un carrito. ((Hecho)). |
 |Seguridad| La vista de productos muestra un mensaje de error si se pretende agregar una page inexistente? (p. ej. page=20003033 o page= -12323 o page = ASDASDASD).Los endpoints de carrito devuelven error si se desea colocar un :cid o un :pid inexistente. |
 |Operación y formato|	El formato de productos y carrito es en inglés. El proyecto corre con npm start.	|
 
