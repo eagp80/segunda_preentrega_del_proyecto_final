@@ -73,7 +73,7 @@ Deberás entregar el proyecto que has venido armando, cambiando persistencia en 
 | ------ | ------ |
 |Consigna|	Profesionalizar las consultas actuales de nuestro servidor express, ajustando la forma de solicitar los productos y agregando nuevos endpoints a los carritos.|	
 |Productos|	Los productos se visualizan correctamente en la vista de productos, y la misma cuenta con una paginación funcional. Además, pueden filtrarse por categoría o por disponibilidad, y ordenarse por precio de manera ascendente o descendente. |
-|Carrito|   Los métodos DELETE eliminan correctamente los productos del carrito. Los métodos PUT actualizan correctamente los elementos del carrito. Se realiza correctamente un populate al momento de obtener un carrito. |
+|Carrito|   Los métodos DELETE eliminan correctamente los productos del carrito. Los métodos PUT actualizan correctamente los elementos del carrito. Se realiza correctamente un populate al momento de obtener un carrito. ((Hecho)). |
 |Seguridad| La vista de productos muestra un mensaje de error si se pretende agregar una page inexistente? (p. ej. page=20003033 o page= -12323 o page = ASDASDASD).Los endpoints de carrito devuelven error si se desea colocar un :cid o un :pid inexistente. |
 |Operación y formato|	El formato de productos y carrito es en inglés. El proyecto corre con npm start.	|
 

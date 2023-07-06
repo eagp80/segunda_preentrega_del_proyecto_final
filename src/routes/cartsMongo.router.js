@@ -7,7 +7,6 @@ const { ObjectId } = Types;
 
 
 class CartsMongoRoutes {
-    //path="/courses";
   path = "/cartsmongo";
   router = Router();
   cartMongoManager = new CartMongoManager();
@@ -17,32 +16,22 @@ class CartsMongoRoutes {
   }
 
   initCartsMongoRoutes() {
+    //*************************************************************************************
+    //*************************************************************************************
+    //******* Crear un carrito nuevo con un array vacío de products ***********************
+    //******  POST DE /api/v1/cartsmongo **************************************************
+    //*************************************************************************************
+    //*************************************************************************************
     this.router.post(`${this.path}`, async (req, res) => {
-      try {
-        // TODO: HACER VALIDACIONES DEL BODY
-        const myObjectId = new ObjectId('000000000000000000000000').toString();
-        console.log(myObjectId);
-
-        // const cartMongo = new cartsMongoModel({
-        //   products : 
-        //   [{product: myObjectId,
-        //   quantity:0}]         
-        // });
-
-        //const cartMongo = {"products": [{"product": myObjectId, "quantity":0 }]};
+      try {    
         const cartMongo = {"products": []};
-
-        console.log("cartMongo es:");
-        console.log(cartMongo);
-
-        // TODO REVISANDO SI EL ESTUDIANTE YA FUE CREADO ANTERIOMENTE
+        // TODO REVISANDO SI EL CARRITO YA FUE CREADO ANTERIOMENTE
         const newCartMongo = await this.cartMongoManager.createCartMongo(cartMongo);
         if (!newCartMongo) {
           return res.json({
             message: `the cartMongo not created`,
           });
         }//se cambio por throw,
-
         return res.status(201).json({
           message: `cart created successfully in Mongo Atlas`,
           cart: newCartMongo,
@@ -59,21 +48,17 @@ class CartsMongoRoutes {
         }
     });
 
-    //this.router.get(`${this.path}/:courseId`, async (req, res) => {
     this.router.get(`${this.path}/:cartMongoId`, async (req, res) => {
       try {
         // TODO: HACER VALIDACIONES *
         const cartMongoId=req.params.cartMongoId;
-        let cartMongoData = await this.cartMongoManager.getCartMongoById(cartMongoId);
-        
-        // TODO REVISANDO SI EL CARRITO YA FUE CREADO ANTERIOMENTE
-        
+        let cartMongoData = await this.cartMongoManager.getCartMongoById(cartMongoId);        
+        // TODO REVISANDO SI EL CARRITO YA FUE CREADO ANTERIOMENTE        
         if (!cartMongoData) {
           return res.json({
             message: `the cart by Id in Mongo Atlas not found`,
           });
         }//se cambio por throw,
-
         return res.status(201).json({
           message: `cart found successfully in Mongo Atlas`,
           cart: cartMongoData,
@@ -89,15 +74,14 @@ class CartsMongoRoutes {
           });
         }
     });
-    //*************************************************************************************
-    //*************************************************************************************
-    //*************************************************************************************
-    // Agregar un Id de  producto a un carrito por medio de Id
-    //*************************************************************************************
-    //*************************************************************************************
-    //*************************************************************************************
 
-    this.router.post(`${this.path}/:cartMongoId/product/:productMongoId`, async (req, res) => {
+    //*************************************************************************************
+    //*************************************************************************************
+    //*********** Agregar un Id de  producto a un carrito por medio de Id *****************
+    //******  POST DE /api/v1/cartsmongo/:cartsMongoId/productMongo/:produtMongoId *************
+    //*************************************************************************************
+    //*************************************************************************************
+    this.router.post(`${this.path}/:cartMongoId/productmongo/:productMongoId`, async (req, res) => {
       // return res.json({ message: `cartsMongo POST no implementado aun` });
       try {
         // TODO: HACER VALIDACIONES 
@@ -106,8 +90,7 @@ class CartsMongoRoutes {
         let cartMongoData = {};
 
         cartMongoData = await this.cartMongoManager.getCartMongoById(cartMongoId);
-        // console.log("cartMongoData tomado de base de datos mongo atlas:");
-        // console.log(cartMongoData);
+        
         // TODO REVISANDO SI EL CARRITO YA FUE CREADO ANTERIOMENTE
         
         if (!cartMongoData) {// 1. si no existe carrito no se hace nada
@@ -118,17 +101,9 @@ class CartsMongoRoutes {
 
         //***** 2. si producto es el Id="000000000000000000000000" reemplazarlo */
         //if(cartMongoData.products[0].product==new ObjectId("000000000000000000000000").toString()){
-        if(cartMongoData.products==[]){
-
-            //cartMongoData.cart.products.push( productMongoId);
-            //console.log("verificado con exito Id 0000");
-            //console.log(cartMongoId);
-            //AAAAAAAAAAAA
-            // console.log(cartMongoData.products[0].quantity+1);
+        if(cartMongoData.products==[]){           
             const productNewId= new ObjectId(productMongoId);
             console.log("entro en 2");
-
-
             cartsMongoModel.findByIdAndUpdate(cartMongoId, { products: [{product: productNewId, quantity: 1}] }, { new: true })
             .then(updatedCart => {//lo que devuelve lo muestro en consola
               console.log(updatedCart);
@@ -136,33 +111,22 @@ class CartsMongoRoutes {
             .catch(error => {
               console.error("error Efren1",error);
             });
-
         } else {// fin if 2, else al if 2... Situacion 3. si el carrito existe, tiene Id distinto de "000000000000000000000000" verificar si ya tiene el producto
             console.log("verificando antes de entrar a 3 o 4")
             const idComp = new ObjectId(productMongoId);
             var existeProduct = false;
             var indexOfProducts= 0;
-            cartMongoData.products.forEach((element,i) => {
-            // console.log(element.product);
-            // console.log(idComp);
-            // console.log(i);
+            cartMongoData.products.forEach((element,i) => {         
 
               if(element.product.toString() === idComp.toString()){//este if solo funciono con toString() en ambos
                 // console.log("entro al ifffffff");
                 existeProduct= true;
                 indexOfProducts=i;              
-              }
-              
-            });
-            // console.log("fuera del foreahc");
-            // console.log(existeProduct);
-            // console.log(cartMongoData.products[indexOfProducts].product)
-            // console.log(new ObjectId(productMongoId))
-
+              }              
+            });            
             if(existeProduct==true){//if 3 situacion 3
                   cartMongoData.products[indexOfProducts].quantity++;
-                  console.log("entrooooo en 3")         
-
+                  console.log("entrooooo en 3");
                   cartsMongoModel.findByIdAndUpdate(cartMongoId, {products: cartMongoData.products }, { new: true })
                   .then(updatedCart => {
                   console.log("Carrito actualizado");
@@ -170,11 +134,9 @@ class CartsMongoRoutes {
                   })
                   .catch(error => {
                   console.error("error Efren3",error);
-                  });           
-            
+                  });
             } else {//else a if 3,  situacion 4 . si el carrrito existe y no tiene el producto 
                   console.log("entrooooo en 4")
-
                   const productNewId= new ObjectId(productMongoId);
                   cartMongoData.products.push({ product:productNewId, quantity: 1 }); 
                   cartsMongoModel.findByIdAndUpdate(cartMongoId, {products: cartMongoData.products }, { new: true })
@@ -188,8 +150,7 @@ class CartsMongoRoutes {
         }//fin else del if 2, situacion 3
         return res.status(201).json({
           //agregar 
-          message: `cart found successfully and update in Mongo Atlas`
-        
+          message: `cart found successfully and update in Mongo Atlas`        
         });
       } catch (error) {
         console.log(
@@ -203,12 +164,86 @@ class CartsMongoRoutes {
         }
     });
 
+    //*************************************************************************************
+    //*************************************************************************************
+    // Eliminar un Id de  producto de un carrito por medio de Id de carrito  **************
+    //******  PUT DE /api/v1/cartsmongo/:cartsMongoId/productMongo/:produtMongoId   ************
+    //*************************************************************************************
+    //*************************************************************************************
+    this.router.delete(`${this.path}/:cartsMongoId/productmongo/:produtMongoId`, async (req, res) => {
+      try{
+        const { cartsMongoId, productMongoId } = req.params;
+
+
+      } catch (error) {
+        console.log(
+          "🚀 ~ file: cartsMongo.router.js:178 ~ CartsMongoRoutes ~ this.router.delete ~ error:",
+          error
+        );
+      }
+      return res.json({ message: `cartsMongo DELETE no implementado aun` });
+    });
+
+    //*************************************************************************************
+    //*************************************************************************************
+    //****** VACIAR el array de products de un carrito por medio de Id CARRITO ************
+    //******  DELETE DE /api/v1/cartsmongo/:cartsMongoId **********************************
+    //*************************************************************************************
+    //*************************************************************************************
+    this.router.delete(`${this.path}/:cartsMongoId`, async (req, res) => {
+      try{
+        const { cartsMongoId} = req.params;
+
+
+      } catch (error) {
+        console.log(
+          "🚀 ~ file: cartsMongo.router.js:196 ~ CartsMongoRoutes ~ this.router.delete ~ error:",
+          error
+        );
+      }
+
+      return res.json({ message: `cartsMongo DELETE no implementado aun` });
+    });
+
+    //*************************************************************************************
+    //*************************************************************************************
+    //******  Actualizar el array de products por medio de Id de carrito ******************
+    //******  PUT DE /api/v1/cartsmongo/:cartsMongoId  ************************************
+    //*************************************************************************************
+    //*************************************************************************************
     this.router.put(`${this.path}/:cartsMongoId`, async (req, res) => {
+      try{
+        const { cartsMongoId} = req.params;
+
+
+      } catch (error) {
+        console.log(
+          "🚀 ~ file: cartsMongo.router.js:215 ~ CartsMongoRoutes ~ this.router.put ~ error:",
+          error
+        );
+      }
       return res.json({ message: `cartsMongo PUT no implementado aun` });
     });
 
-    this.router.delete(`${this.path}/:cartsMongoId`, async (req, res) => {
-      return res.json({ message: `cartsMongo DELETE no implementado aun` });
+    //*************************************************************************************
+    //*************************************************************************************
+    //******  Actualizar  SÓLO la cantidad de ejemplares  del producto ********************
+    //******* por cualquier cantidad pasada desde req.body.     ***************************
+    //******  PUT DE /api/v1/cartsmongo/:cartsMongoId/productMongo/:produtMongoId **********************************
+    //*************************************************************************************
+    //*************************************************************************************
+    this.router.put(`${this.path}/:cartsMongoId/productmongo/:produtMongoId`, async (req, res) => {
+      try{
+        const { cartsMongoId, productMongoId } = req.params;
+
+
+      } catch (error) {
+        console.log(
+          "🚀 ~ file: cartsMongo.router.js:234 ~ CartsMongoRoutes ~ this.router.put ~ error:",
+          error
+        );
+      }
+      return res.json({ message: `cartsMongo PUT no implementado aun` });
     });
   }
 }
