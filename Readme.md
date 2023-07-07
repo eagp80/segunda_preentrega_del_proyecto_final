@@ -75,7 +75,7 @@ Deberás entregar el proyecto que has venido armando, cambiando persistencia en 
 |Productos|	Los productos se visualizan correctamente en la vista de productos ((Hecho)), y la misma cuenta con una paginación funcional. Además, pueden filtrarse por categoría o por disponibilidad, y ordenarse por precio de manera ascendente o descendente. |
 |Carrito|   Los métodos DELETE eliminan correctamente los productos del carrito((Hecho)). Los métodos PUT actualizan correctamente los elementos del carrito. Se realiza correctamente un populate al momento de obtener un carrito. ((Hecho)). |
 |Seguridad| La vista de productos muestra un mensaje de error si se pretende agregar una page inexistente? (p. ej. page=20003033 o page= -12323 o page = ASDASDASD).Los endpoints de carrito devuelven error si se desea colocar un :cid o un :pid inexistente. |
-|Operación y formato|	El formato de productos y carrito es en inglés. El proyecto corre con npm start.	|
+|Operación y formato|	El formato de productos y carrito es en inglés ((Hecho)). El proyecto corre con npm start ((Hecho)).	|
 
 
 ## Rutas para servidor con file-system en puerto 8081:

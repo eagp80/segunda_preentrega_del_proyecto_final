@@ -99,6 +99,42 @@ class ProductsMongoRoutes {//no es un Router pero adentro tiene uno
           });
       }
     });
+//**************ORDENAR PRODUCTOS POR CODE los que tienen title:"Desde body con postman" ************************************************
+    this.router.get(`${this.path}/order/:title`, async (req, res) => {
+      try {
+        const {title}=req.params;
+        console.log(title)
+        let result = await productsMongoModel.aggregate([
+          {
+            $match: {description: "Desde Body con postman"}
+          },
+          {
+             $match: {title: `${title}` }
+
+          },
+          {
+            $group: {_id: "$code", products : {$push :  "$$ROOT"} }
+          },
+          {
+            $sort: {_id:-1}
+
+          }
+
+        ]);
+        // TODO: AGREGAR VALIDACION
+
+        return res.json({
+          message: `get productMongo order by code succesfully`,
+          productsMongo: result,
+        });
+      } catch (error) {
+        console.log(
+          "🚀 ~ file: productMongo.routes.js:117 ~ ProductsMongoRoutes ~ this.router.get ~ error:",
+          error
+        );
+      }
+    });
+
   }
 }
 
