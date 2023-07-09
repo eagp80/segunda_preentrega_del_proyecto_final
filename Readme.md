@@ -5,7 +5,20 @@
 ## ADEMÁS TIENE MANEJO DE ARCHIVOS CON MULTER, MANEJO DE VARIABLES DE ENTORNO CON dotenv CAMBIO DE VARIABLES DE ENTORNO DURANTE EJECUCIÓN CON cross-env, SE MUESTRAN RUTAS EN TABLA EN CONSOLA LADO BACKEND CON express-routemap. 
 ### CORRESPODE A PREENTREGA 2 CLASE 17 MONGO AVANZADO PARTE II.
 ...
+### Como usar la app:
+ <h2>Ejemplos de rutas:</h2>
 
+        Para obtener todos los productos detalladamemnte:
+        http://localhost:8000/api/v1/productsmongo/
+
+        Para ver resumen de todos los productos:
+        http://localhost:8000/api/v1/viewsmongo/productsmongo/
+
+        Para ver resumen de todos los carritos
+        http://localhost:8000/api/v1/viewsmongo/cartsmongo/
+
+        Para la paginacion desde mongo atlas con limit, sort y query:
+        http://localhost:8000/api/v1/viewsmongo/productsmongopage?page=1&limit=3&sort={"code":1}&query={"description": "Desde fromulario con socket"}
 ## Consigna. Se está requiriendo lo siguiente:
 Deberás entregar el proyecto que has venido armando, cambiando persistencia en base de datos, además de agregar algunos endpoints nuevos a tu ecommerce.
 
