@@ -33,7 +33,7 @@ app.use('/api/carts',cartsRouter);//idem
 
 app.engine('handlebars', handlebars.engine());//arrancamos y le ponemos un alias a el motor 
 app.set('views', `${__dirname}/views`);//le decimos a app donde estaran las vistas
-app.set('view engine', 'handlebars');//le decimos a app que el motor de vistas es handlebars definido dos lineas antes
+app.set('view engine', 'handlebars');//le decimos a app que el motor de vistas es handlebars con alias definido dos lineas antes
 
 app.use('/',viewsRouter);//al llegar la ruta especificada lo procesa con viewsRouter
 

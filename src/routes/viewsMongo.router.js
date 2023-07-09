@@ -1,6 +1,8 @@
 import { Router } from "express";
 import CartsMongoManager from "../dao/managers/cartMongo.manager.js";
 import ProductsMongoManager from "../dao/managers/productMongo.manager.js";
+import productMongoModel from "../dao/models/productsMongo.models.js";
+
 
 class ViewsMongoRoutes {
   path = "/viewsmongo";
@@ -46,23 +48,24 @@ class ViewsMongoRoutes {
 
         }
       })
-
-      console.log(JSON.stringify(cartsMongoMapped))
-      // const cartsMongoMapped = cartsMongo.map((cartMongo,index) => {       
-      //   let arrAux=[];
-      //   let p= cartsMongo[index].products.map(obj=>obj.product);
-      //   //arrAux.push(p);
-      //   arrAux=p;
-      //   console.log(arrAux);
-      //   return {
-      //     products: arrAux,          
-      //     i: index+1          
-      //   };
-      // }); 
-      cartsMongoMapped.map(item =>  console.log("Carrito:",item.i,item.products))
-     
+      console.log(JSON.stringify(cartsMongoMapped));    
+      cartsMongoMapped.map(item =>  console.log("Carrito:",item.i,item.products));     
       res.render("cartsMongo", { cartsMongo: cartsMongoMapped });
     });
+
+    this.router.get(`${this.path}/productsmongopage`, async (req, res) => {
+      const {page=1} = req.query;
+      const {docs, hasPrevPage, hasNextPage, prevPage, nextPage }=
+       await productMongoModel.paginate({}, {limit:2, page, lean:true});
+      res.render("productsMongoPage",{
+        products: docs,
+        page:page,
+        hasPrevPage:hasPrevPage,
+        hasNextPage:hasNextPage,
+        prevPage:prevPage,
+        nextPage:nextPage,
+      })
+    })
   }
 }
 
