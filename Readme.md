@@ -1,8 +1,8 @@
 
  ### Escribir a mi whatsapp para explicar el funcionamiento porque le he realizado varias modificaciones y son dos servidores en uno:whatsapp +573158680076.
 # PROFESIONALIZACION DE BASE DE DATOS DE ECOMERCE.
-##  SERVIDOR DE PRODUCTOS Y CARRITOS CON EXPRESS, VISTAS CON EXPRESS-HANDLEBARS, BASE DE DATOS MANEJADA CON MONGOOSE HACIA MONGO ATLAS Y WEBSOCKET PARA CHAT CON SOCKETS.IO. 
-## ADEMÁS TIENE MANEJO DE ARCHIVOS CON MULTER, MANEJO DE VARIABLES DE ENTORNO CON dotenv CAMBIO DE VARIABLES DE ENTORNO DURANTE EJECUCIÓN CON cross-env, SE MUESTRAN RUTAS EN TABLA EN CONSOLA LADO BACKEND CON express-routemap. 
+###  SERVIDOR DE PRODUCTOS Y CARRITOS CON EXPRESS, VISTAS CON EXPRESS-HANDLEBARS, BASE DE DATOS MANEJADA CON MONGOOSE HACIA MONGO ATLAS Y WEBSOCKET PARA CHAT CON SOCKETS.IO. 
+### ADEMÁS TIENE MANEJO DE ARCHIVOS CON MULTER, MANEJO DE VARIABLES DE ENTORNO CON dotenv CAMBIO DE VARIABLES DE ENTORNO DURANTE EJECUCIÓN CON cross-env, SE MUESTRAN RUTAS EN TABLA EN CONSOLA LADO BACKEND CON express-routemap. 
 ### CORRESPODE A PREENTREGA 2 CLASE 17 MONGO AVANZADO PARTE II.
 ...
 ### Como usar la app:
@@ -31,7 +31,7 @@ Deberás entregar el proyecto que has venido armando, cambiando persistencia en 
 
 ### Objetivos específicos
 
-- Profesionalizar las consultas de productos con filtros, paginación y ordenamientos.
+- Profesionalizar las consultas de productos con filtros, paginación y ordenamientos.((Hecho)).
 - Profesionalizar la gestión de carrito para implementar los últimos conceptos vistos.
 
 ### Formato
@@ -51,7 +51,7 @@ Deberás entregar el proyecto que has venido armando, cambiando persistencia en 
         - limit permitirá devolver sólo el número de elementos solicitados al momento de la petición, en caso de no recibir limit, éste será de 10. ((Hecho)).
         - page permitirá devolver la página que queremos buscar, en caso de no recibir page, ésta será de 1. ((Hecho)).
         - query, el tipo de elemento que quiero buscar (es decir, qué filtro aplicar), en caso de no recibir query, realizar la búsqueda general. ((Hecho))
-        - sort: asc/desc, para realizar ordenamiento ascendente o descendente por precio, en caso de no recibir sort, no realizar ningún ordenamiento.
+        - sort: asc/desc, para realizar ordenamiento ascendente o descendente por precio, en caso de no recibir sort, no realizar ningún ordenamiento. ((Hecho)).
 - El método GET deberá devolver un objeto con el siguiente formato:
     ```
     {
