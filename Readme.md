@@ -35,7 +35,7 @@ Deberás entregar el proyecto que has venido armando, cambiando persistencia en 
 
 - Con base en nuestra implementación actual de productos, modificar el método GET / para que cumpla con los siguientes puntos:
     - Deberá poder recibir por query params un limit (opcional), una page (opcional), un sort (opcional) y un query (opcional)
-        - limit permitirá devolver sólo el número de elementos solicitados al momento de la petición, en caso de no recibir limit, éste será de 10.
+        - limit permitirá devolver sólo el número de elementos solicitados al momento de la petición, en caso de no recibir limit, éste será de 10. ((Hecho)).
         - page permitirá devolver la página que queremos buscar, en caso de no recibir page, ésta será de 1. ((Hecho)).
         - query, el tipo de elemento que quiero buscar (es decir, qué filtro aplicar), en caso de no recibir query, realizar la búsqueda general.
         - sort: asc/desc, para realizar ordenamiento ascendente o descendente por precio, en caso de no recibir sort, no realizar ningún ordenamiento.

@@ -54,12 +54,22 @@ class ViewsMongoRoutes {
     });
 
     this.router.get(`${this.path}/productsmongopage`, async (req, res) => {
-      const {page=1} = req.query;
+      const {page=1, limit=10, query} = req.query;
+      // console.log(query);
+      
+      let q = {};
+      if(query){
+       q= JSON.parse(query);
+      }
+      // console.log(query);
+
+
+      console.log(q)
       const {docs, totalPages, hasPrevPage, hasNextPage, prevPage, nextPage }=
-       await productMongoModel.paginate({}, {limit:2, page, lean:true});
-       const aux = 
-       await productMongoModel.paginate({}, {limit:2, page, lean:true});
-       console.log(aux);
+       await productMongoModel.paginate(q, {limit, page, lean:true});
+       //const aux = 
+       //await productMongoModel.paginate({}, {limit:1, page, lean:true});
+       //console.log(aux); //esto era para ver que legaba de mongo atlas
 
       res.render("productsMongoPage",{
         payload: docs,
@@ -69,6 +79,12 @@ class ViewsMongoRoutes {
         page:page,
         hasPrevPage:hasPrevPage,
         hasNextPage:hasNextPage,
+        prevLink: hasPrevPage
+        ? `http://localhost:8000/api/v1/productsmongopage?limit=${limit}&page=${prevPage}`
+        : null,
+      nextLink: hasNextPage
+        ? `http://localhost:8000/api/v1/productsmongopage?limit=${limit}&page=${nextPage}`
+        : null,
         //prevLink: Link directo a la página previa (null si hasPrevPage=false),
         //nextLink:Link directo a la página siguiente (null si hasNextPage=false),
       })
