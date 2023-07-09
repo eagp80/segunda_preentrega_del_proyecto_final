@@ -7,7 +7,19 @@
     <title>{{title}}</title>
 </head>
     <body>
-        <h3>Opciones de rutas:</h3>
+        <h2>Ejemplos de rutas:</h2>
+
+        <h3> Para obtener todos los productos detalladamemnte: </h3>
+        <p>http://localhost:8000/api/v1/productsmongo/</p>
+
+        <h3>Para ver resumen de todos los productos</h3>
+        <p> http://localhost:8000/api/v1/viewsmongo/productsmongo/</p>
+
+         <h3>Para ver resumen de todos los carritos</h3>
+        <p> http://localhost:8000/api/v1/viewsmongo/cartsmongo/</p>
+
+        <h3> Para la paginacion desde mongo atlas con limit, sort y query: </h3>
+        <p>http://localhost:8000/api/v1/viewsmongo/productsmongopage?page=1&limit=3&sort={"code":1}&query={"description": "Desde fromulario con socket"}</p>
 
         {{{body}}}
 

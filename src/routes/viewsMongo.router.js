@@ -56,19 +56,24 @@ class ViewsMongoRoutes {
     });
 
     this.router.get(`${this.path}/productsmongopage`, async (req, res) => {
-      const {page=1, limit=10, query} = req.query;
+      const {page=1, limit=10, query, sort} = req.query;
       
       let q = {};
       if(query){
        q= JSON.parse(query);
       }
+      let s = {};
+      if(sort){
+       s= JSON.parse(sort);       
+      }
       // console.log(query);
-      //console.log(q)
+      //console.log(q);
+      //ejemplo: http://localhost:8000/api/v1/viewsmongo/productsmongopage?query={%22title%22:%22Producto%2026%22}
       const {docs, totalPages, hasPrevPage, hasNextPage, prevPage, nextPage }=
-       await productMongoModel.paginate(q, {limit, page, lean:true});
-       //const aux = 
-       //await productMongoModel.paginate({}, {limit:1, page, lean:true});
-       //console.log(aux); //esto era para ver que llegaba de mongo atlas.
+       await productMongoModel.paginate(q, {limit, page, sort:s, lean:true});
+      //  const aux = 
+      //  await productMongoModel.paginate(q, {limit, page, sort:s, lean:true});
+      //  console.log(aux); //esto era para ver que llegaba de mongo atlas.
 
       res.render("productsMongoPage",{
         payload: docs,

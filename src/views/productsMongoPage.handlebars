@@ -1,7 +1,7 @@
 <H1>Lista de PRODUCTOS</H1>
 
 {{#each payload}}
-  <li>{{this.title}}. Precio: $ {{this.price}}</li>
+  <li>Título: {{this.title}}. Code: {{this.code}}. Stock: {{this.stock}}. Precio: $ {{this.price}}. </li>
 {{/each}}
 <script>
     let hasNextPage=false;
