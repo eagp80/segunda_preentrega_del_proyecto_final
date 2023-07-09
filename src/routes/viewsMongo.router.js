@@ -57,13 +57,20 @@ class ViewsMongoRoutes {
       const {page=1} = req.query;
       const {docs, hasPrevPage, hasNextPage, prevPage, nextPage }=
        await productMongoModel.paginate({}, {limit:2, page, lean:true});
+       const aux = 
+       await productMongoModel.paginate({}, {limit:2, page, lean:true});
+       console.log(aux);
+
       res.render("productsMongoPage",{
-        products: docs,
+        payload: docs,
+        //totalPages:totalPages,
+        prevPage: prevPage,
+        nextPage: nextPage,
         page:page,
         hasPrevPage:hasPrevPage,
         hasNextPage:hasNextPage,
-        prevPage:prevPage,
-        nextPage:nextPage,
+        //prevLink: Link directo a la página previa (null si hasPrevPage=false),
+        //nextLink:Link directo a la página siguiente (null si hasNextPage=false),
       })
     })
   }
