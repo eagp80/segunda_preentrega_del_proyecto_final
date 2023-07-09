@@ -55,7 +55,7 @@ class ViewsMongoRoutes {
 
     this.router.get(`${this.path}/productsmongopage`, async (req, res) => {
       const {page=1} = req.query;
-      const {docs, hasPrevPage, hasNextPage, prevPage, nextPage }=
+      const {docs, totalPages, hasPrevPage, hasNextPage, prevPage, nextPage }=
        await productMongoModel.paginate({}, {limit:2, page, lean:true});
        const aux = 
        await productMongoModel.paginate({}, {limit:2, page, lean:true});
@@ -63,7 +63,7 @@ class ViewsMongoRoutes {
 
       res.render("productsMongoPage",{
         payload: docs,
-        //totalPages:totalPages,
+        totalPages:totalPages,
         prevPage: prevPage,
         nextPage: nextPage,
         page:page,
