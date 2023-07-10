@@ -52,14 +52,14 @@ class CartsMongoRoutes {
     //*************************************************************************************
     //*************************************************************************************
     //********** Obtener un carrito con Id de carrito *************************************
-    //******  GET DE /api/v1/cartsmongo/:cartMongoId **************************************
+    //******  GET DE /api/v1/cartsmongo/:cid **************************************
     //*************************************************************************************
     //*************************************************************************************
-    this.router.get(`${this.path}/:cartMongoId`, async (req, res) => {
+    this.router.get(`${this.path}/:cid`, async (req, res) => {
       try {
         // TODO: HACER VALIDACIONES *
-        const cartMongoId=req.params.cartMongoId;
-        let cartMongoData = await this.cartMongoManager.getCartMongoByIdPopulate(cartMongoId);//population        
+        const cid=req.params.cid;
+        let cartMongoData = await this.cartMongoManager.getCartMongoByIdPopulate(cid);//population        
         // TODO REVISANDO SI EL CARRITO YA FUE CREADO ANTERIOMENTE        
         if (!cartMongoData) {
           return res.json({
@@ -85,18 +85,18 @@ class CartsMongoRoutes {
     //*************************************************************************************
     //*************************************************************************************
     //*********** Agregar un Id de  producto a un carrito por medio de Id *****************
-    //******  POST DE /api/v1/cartsmongo/:cartMongoId/productMongo/:produtMongoId *************
+    //******  POST DE /api/v1/cartsmongo/:cid/productMongo/:produtMongoId *************
     //*************************************************************************************
     //*************************************************************************************
-    this.router.post(`${this.path}/:cartMongoId/productmongo/:productMongoId`, async (req, res) => {
+    this.router.post(`${this.path}/:cid/productmongo/:pid`, async (req, res) => {
       // return res.json({ message: `cartsMongo POST no implementado aun` });
       try {
         // TODO: HACER VALIDACIONES 
-        const cartMongoId=req.params.cartMongoId;
-        const productMongoId=req.params.productMongoId;
+        const cid=req.params.cid;
+        const pid=req.params.pid;
         let cartMongoData = {};
 
-        cartMongoData = await this.cartMongoManager.getCartMongoById(cartMongoId);
+        cartMongoData = await this.cartMongoManager.getCartMongoById(cid);
         
         // TODO REVISANDO SI EL CARRITO YA FUE CREADO ANTERIOMENTE
         
@@ -109,9 +109,9 @@ class CartsMongoRoutes {
         //***** 2. si producto es el Id="000000000000000000000000" reemplazarlo */
         //if(cartMongoData.products[0].product==new ObjectId("000000000000000000000000").toString()){
         if(cartMongoData.products==[]){           
-            const productNewId= new ObjectId(productMongoId);
+            const productNewId= new ObjectId(pid);
             console.log("entro en 2");
-            cartsMongoModel.findByIdAndUpdate(cartMongoId, { products: [{product: productNewId, quantity: 1}] }, { new: true })
+            cartsMongoModel.findByIdAndUpdate(cid, { products: [{product: productNewId, quantity: 1}] }, { new: true })
             .then(updatedCart => {//lo que devuelve lo muestro en consola
               console.log(updatedCart);
             })
@@ -120,14 +120,14 @@ class CartsMongoRoutes {
             });
         } else {// fin if 2, else al if 2... Situacion 3. si el carrito existe, tiene Id distinto de "000000000000000000000000" verificar si ya tiene el producto
             console.log("verificando antes de entrar a 3 o 4")
-            const idComp = new ObjectId(productMongoId);
+            const idComp = new ObjectId(pid);
             var existeProduct = false;
             var indexOfProducts= 0;
             cartMongoData.products.forEach((element,i) => {       
               console.log(element.product.toString());
-              console.log(productMongoId);  
+              console.log(pid);  
 
-              if(element.product.toString() === productMongoId){//este if solo funciono con toString() en ambos
+              if(element.product.toString() === pid){//este if solo funciono con toString() en ambos
                 console.log("entro al ifffffff");
                 existeProduct= true;
                 indexOfProducts=i;              
@@ -137,7 +137,7 @@ class CartsMongoRoutes {
             if(existeProduct){//if 3 situacion 3
                   cartMongoData.products[indexOfProducts].quantity++;
                   console.log("entrooooo en 3");
-                  cartsMongoModel.findByIdAndUpdate(cartMongoId, {products: cartMongoData.products }, { new: true })
+                  cartsMongoModel.findByIdAndUpdate(cid, {products: cartMongoData.products }, { new: true })
                   .then(updatedCart => {
                   console.log("Carrito actualizado");
                   console.log(updatedCart);
@@ -147,9 +147,9 @@ class CartsMongoRoutes {
                   });
             } else {//else a if 3,  situacion 4 . si el carrrito existe y no tiene el producto 
                   console.log("entrooooo en 4")
-                  const productNewId= new ObjectId(productMongoId);
+                  const productNewId= new ObjectId(pid);
                   cartMongoData.products.push({ product:productNewId, quantity: 1 }); 
-                  cartsMongoModel.findByIdAndUpdate(cartMongoId, {products: cartMongoData.products }, { new: true })
+                  cartsMongoModel.findByIdAndUpdate(cid, {products: cartMongoData.products }, { new: true })
                   .then(updatedCart => {
                   console.log(updatedCart);
                   })
@@ -177,19 +177,19 @@ class CartsMongoRoutes {
     //*************************************************************************************
     //*************************************************************************************
     // Eliminar un Id de  producto de un carrito por medio de Id de carrito  **************
-    //******  PUT DE /api/v1/cartsmongo/:cartMongoId/productMongo/:produtMongoId   ************
+    //******  PUT DE /api/v1/cartsmongo/:cid/productMongo/:produtMongoId   ************
     //*************************************************************************************
     //*************************************************************************************
-    this.router.delete(`${this.path}/:cartMongoId/productmongo/:produtMongoId`, async (req, res) => {
+    this.router.delete(`${this.path}/:cid/productmongo/:pid`, async (req, res) => {
       try{
-        const { cartMongoId, productMongoId } = req.params;
-        const cart = await cartsMongoModel.findById({_id: cartMongoId});
-        const index =  cart.products.findIndex(item => item.product === productMongoId);
+        const { cid, pid } = req.params;
+        const cart = await cartsMongoModel.findById({_id: cid});
+        const index =  cart.products.findIndex(item => item.product === pid);
         if(index){
           const cartAux = cart;
           cartAux.products.splice(index,1);    
-          await cartsMongoModel.updateOne({_id:cartMongoId}, cartAux);
-          const cartUpdate = await cartsMongoModel.findById({_id: cartMongoId});     
+          await cartsMongoModel.updateOne({_id:cid}, cartAux);
+          const cartUpdate = await cartsMongoModel.findById({_id: cid});     
           return res.json({message: `se eliminó producto en este carrito`, cartUpdate: cartUpdate })
         }else{
           return res.json({message: `no existe el producto en este carrito`})
@@ -206,12 +206,12 @@ class CartsMongoRoutes {
     //*************************************************************************************
     //*************************************************************************************
     //****** VACIAR el array de products de un carrito por medio de Id CARRITO ************
-    //******  DELETE DE /api/v1/cartsmongo/:cartMongoId **********************************
+    //******  DELETE DE /api/v1/cartsmongo/:cid **********************************
     //*************************************************************************************
     //*************************************************************************************
-    this.router.delete(`${this.path}/:cartMongoId`, async (req, res) => {
+    this.router.delete(`${this.path}/:cid`, async (req, res) => {
       try{
-        const { cartMongoId} = req.params;
+        const { cid} = req.params;
       } catch (error) {
         console.log(
           "🚀 ~ file: cartsMongo.router.js:196 ~ CartsMongoRoutes ~ this.router.delete ~ error:",
@@ -224,12 +224,12 @@ class CartsMongoRoutes {
     //*************************************************************************************
     //*************************************************************************************
     //******  Actualizar el array de products por medio de Id de carrito ******************
-    //******  PUT DE /api/v1/cartsmongo/:cartMongoId  ************************************
+    //******  PUT DE /api/v1/cartsmongo/:cid  ************************************
     //*************************************************************************************
     //*************************************************************************************
-    this.router.put(`${this.path}/:cartMongoId`, async (req, res) => {
+    this.router.put(`${this.path}/:cid`, async (req, res) => {
       try{
-        const { cartMongoId} = req.params;
+        const { cid} = req.params;
 
 
       } catch (error) {
@@ -245,12 +245,12 @@ class CartsMongoRoutes {
     //*************************************************************************************
     //******  Actualizar  SÓLO la cantidad de ejemplares  del producto ********************
     //******* por cualquier cantidad pasada desde req.body.     ***************************
-    //******  PUT DE /api/v1/cartsmongo/:cartMongoId/productMongo/:produtMongoId **********************************
+    //******  PUT DE /api/v1/cartsmongo/:cid/productMongo/:produtMongoId **********************************
     //*************************************************************************************
     //*************************************************************************************
-    this.router.put(`${this.path}/:cartMongoId/productmongo/:produtMongoId`, async (req, res) => {
+    this.router.put(`${this.path}/:cid/productmongo/:pid`, async (req, res) => {
       try{
-        const { cartMongoId, productMongoId } = req.params;
+        const { cid, pid } = req.params;
 
 
       } catch (error) {

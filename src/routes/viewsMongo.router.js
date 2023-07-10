@@ -7,7 +7,7 @@ import { NODE_ENV, PORT, API_VERSION, CURSO } from "../config/config.js";
 
 
 class ViewsMongoRoutes {
-  path = "/viewsmongo";
+  path = "/views";
   router = Router();
   productMongoManager = new ProductsMongoManager();
   cartsMongoManager = new CartsMongoManager();
@@ -68,7 +68,7 @@ class ViewsMongoRoutes {
       }
       // console.log(query);
       //console.log(q);
-      //ejemplo: http://localhost:8000/api/v1/viewsmongo/productsmongopage?query={%22title%22:%22Producto%2026%22}
+      //ejemplo: http://localhost:8000/api/v1/views/productsmongopage?query={%22title%22:%22Producto%2026%22}
       const {docs, totalPages, hasPrevPage, hasNextPage, prevPage, nextPage }=
        await productMongoModel.paginate(q, {limit, page, sort:s, lean:true});
       //  const aux = 

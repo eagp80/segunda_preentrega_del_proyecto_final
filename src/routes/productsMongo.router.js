@@ -51,16 +51,16 @@ class ProductsMongoRoutes {//no es un Router pero adentro tiene uno
       }
     });
 
-    this.router.get(`${this.path}/:productMongoId`, async (req, res) => {
+    this.router.get(`${this.path}/:pid`, async (req, res) => {
       try {
-        const { productMongoId } = req.params;
+        const { pid } = req.params;
         const productMongoDetail = await this.productMongoManager.getProductMongoById(
-          productMongoId
+          pid
         );
         // TODO: AGREGAR VALIDACION
 
         return res.json({
-          message: `get productMongo info of ${productMongoId} succesfully`,
+          message: `get productMongo info of ${pid} succesfully`,
           productMongo: productMongoDetail,
         });
       } catch (error) {
