@@ -12,13 +12,13 @@
         http://localhost:8000/api/v1/productsmongo/
 
         Para ver resumen de todos los productos:
-        http://localhost:8000/api/v1/viewsmongo/productsmongo/
+        http://localhost:8000/api/v1/views/productsmongo/
 
         Para ver resumen de todos los carritos
-        http://localhost:8000/api/v1/viewsmongo/cartsmongo/
+        http://localhost:8000/api/v1/views/cartsmongo/
 
         Para la paginacion desde mongo atlas con limit, sort y query:
-        http://localhost:8000/api/v1/viewsmongo/productsmongopage?page=1&limit=3&sort={"code":1}&query={"description": "Desde fromulario con socket"}
+        http://localhost:8000/api/v1/views/productsmongopage?page=1&limit=3&sort={"code":1}&query={"description": "Desde fromulario con socket"}
 ## Consigna. Se está requiriendo lo siguiente:
 Deberás entregar el proyecto que has venido armando, cambiando persistencia en base de datos, además de agregar algunos endpoints nuevos a tu ecommerce.
 
