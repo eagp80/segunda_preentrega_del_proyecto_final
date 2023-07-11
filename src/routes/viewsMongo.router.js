@@ -57,25 +57,36 @@ class ViewsMongoRoutes {
       res.render("carts", { cartsMongo: cartsMongoMapped });
     });
 
+
+   //******************************************************************************* */
+   //******************************************************************************* */
+   //*******************Vista de productos con paginacion*************************** */
+   //******************************************************************************* */
+   //******************************************************************************* */
     this.router.get(`${this.path}/products`, async (req, res) => {
       const {page=1, limit=10, query, sort} = req.query;
       
       let q = {};
+      let qString ="";
       if(query){
        q= JSON.parse(query);
+       qString = JSON.stringify(q);
       }
       let s = {};
       if(sort){
        s= JSON.parse(sort);       
-      }
-      // console.log(query);
-      //console.log(q);
-      //ejemplo: http://localhost:8000/api/v1/views/productsmongopage?query={%22title%22:%22Producto%2026%22}
+      }      
       const {docs, totalPages, hasPrevPage, hasNextPage, prevPage, nextPage }=
        await productMongoModel.paginate(q, {limit, page, sort:s, lean:true});
+       
       //  const aux = 
       //  await productMongoModel.paginate(q, {limit, page, sort:s, lean:true});
       //  console.log(aux); //esto era para ver que llegaba de mongo atlas.
+
+       let qStringURI = encodeURIComponent(qString);
+    
+      let url1 =`http://localhost:${PORT}/api/${API_VERSION}/views/products?limit=${limit}&page=${prevPage}&sort=${sort}&query=${qStringURI}`
+      let url2 =`http://localhost:${PORT}/api/${API_VERSION}/views/products?limit=${limit}&page=${nextPage}&sort=${sort}&query=${qStringURI}`
 
       res.render("products",{
         payload: docs,
@@ -86,10 +97,10 @@ class ViewsMongoRoutes {
         hasPrevPage:hasPrevPage,
         hasNextPage:hasNextPage,
         prevLink: hasPrevPage
-        ? `http://localhost:${PORT}/api/${API_VERSION}/products?limit=${limit}&page=${prevPage}`
+        ? url1
         : null,
       nextLink: hasNextPage
-        ? `http://localhost:${PORT}/api/${API_VERSION}/products?limit=${limit}&page=${nextPage}`
+        ? url2
         : null,
         //prevLink: Link directo a la página previa (null si hasPrevPage=false),
         //nextLink:Link directo a la página siguiente (null si hasNextPage=false),
