@@ -44,10 +44,10 @@ Deberás entregar el proyecto que has venido armando, cambiando persistencia en 
 ### Se debe entregar
 
 - Con base en nuestra implementación actual de productos, modificar el método GET / para que cumpla con los siguientes puntos:
-    - Deberá poder recibir por query params un limit (opcional), una page (opcional), un sort (opcional) y un query (opcional)
+    - Deberá poder recibir por query params un limit (opcional), una page (opcional), un sort (opcional) y un query (opcional). ((Hecho)).
         - limit permitirá devolver sólo el número de elementos solicitados al momento de la petición, en caso de no recibir limit, éste será de 10. ((Hecho)).
         - page permitirá devolver la página que queremos buscar, en caso de no recibir page, ésta será de 1. ((Hecho)).
-        - query, el tipo de elemento que quiero buscar (es decir, qué filtro aplicar), en caso de no recibir query, realizar la búsqueda general. ((Hecho))
+        - query, el tipo de elemento que quiero buscar (es decir, qué filtro aplicar), en caso de no recibir query, realizar la búsqueda general. ((Hecho)).
         - sort: asc/desc, para realizar ordenamiento ascendente o descendente por precio, en caso de no recibir sort, no realizar ningún ordenamiento. ((Hecho)).
 - El método GET deberá devolver un objeto con el siguiente formato:
     ```
@@ -64,7 +64,7 @@ Deberás entregar el proyecto que has venido armando, cambiando persistencia en 
         nextLink: Link directo a la página siguiente (null si hasNextPage=false)
     }
     ``` ((Hecho)).
-- Se deberá poder buscar productos por categoría o por disponibilidad, y se deberá poder realizar un ordenamiento de estos productos de manera ascendente o descendente por precio.
+- Se deberá poder buscar productos por categoría o por disponibilidad ((Hecho por query con formato JSON ejemplo &query={"prop":"valor"})), y se deberá poder realizar un ordenamiento de estos productos de manera ascendente o descendente por precio ((Hecho por query con formato JSON ejemplo: &sort={"prop":-1})).
 - Además, agregar al router de carts los siguientes endpoints:
     - DELETE api/carts/:cid/products/:pid deberá eliminar del carrito el producto seleccionado ((Hecho)).
     - PUT api/carts/:cid deberá actualizar el carrito con un arreglo de productos con el formato especificado arriba.
