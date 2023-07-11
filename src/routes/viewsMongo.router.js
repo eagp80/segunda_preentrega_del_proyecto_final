@@ -64,47 +64,93 @@ class ViewsMongoRoutes {
    //******************************************************************************* */
    //******************************************************************************* */
     this.router.get(`${this.path}/products`, async (req, res) => {
-      const {page=1, limit=10, query, sort} = req.query;
-      
-      let q = {};
-      let qString ="";
-      if(query){
-       q= JSON.parse(query);
-       qString = JSON.stringify(q);
+      try {
+        const { page = 1, limit = 10, query, sort } = req.query;
+        let q = {};
+        let qString = "";       
+        let s = {};
+        let sString = "";
+        let url1="";
+        let url2="";
+
+
+        if (sort) {
+          s = JSON.parse(sort);
+          sString= JSON.stringify(s);
+        }        
+        if(query){
+          q = JSON.parse(query);
+          qString = JSON.stringify(q);
+        }
+        const { docs, totalPages, hasPrevPage, hasNextPage, prevPage, nextPage } =
+          await productMongoModel.paginate(q, { limit, page, sort: s, lean: true });      
+
+          if (!query && sort) {            
+            url1=`http://localhost:${PORT}/api/${API_VERSION}/views/products?limit=${limit}&page=${prevPage}&sort=${sString}`;
+            url2=`http://localhost:${PORT}/api/${API_VERSION}/views/products?limit=${limit}&page=${nextPage}&sort=${sString}`;
+          }
+
+          
+          if (query && !sort) {
+            let qStringURI = encodeURIComponent(qString);
+            url1=`http://localhost:${PORT}/api/${API_VERSION}/views/products?limit=${limit}&page=${prevPage}&query=${qStringURI}`;
+            url2=`http://localhost:${PORT}/api/${API_VERSION}/views/products?limit=${limit}&page=${nextPage}&query=${qStringURI}`;
+          }
+
+          if (!query && !sort) {
+            url1=`http://localhost:${PORT}/api/${API_VERSION}/views/products?limit=${limit}&page=${prevPage}`;
+            url2=`http://localhost:${PORT}/api/${API_VERSION}/views/products?limit=${limit}&page=${nextPage}`;
+          }        
+
+          if (query && sort) {
+            let qStringURI = encodeURIComponent(qString);
+            url1 = `http://localhost:${PORT}/api/${API_VERSION}/views/products?limit=${limit}&page=${prevPage}&sort=${sort}&query=${qStringURI}`
+            url2 = `http://localhost:${PORT}/api/${API_VERSION}/views/products?limit=${limit}&page=${nextPage}&sort=${sort}&query=${qStringURI}`
+        }
+        //  const aux = 
+        //  await productMongoModel.paginate(q, {limit, page, sort:s, lean:true});
+        //  console.log(aux); //esto era para ver que llegaba de mongo atlas.
+        
+        docs.forEach(element => {//algunos documentos no tienen el status:true
+          if (element.status === false) {
+            element.status = "false"
+          } else {
+            element.status = "true"
+          }
+          //console.log("element.status");//para verificar si a los status:undefined se pasaban a true
+          //console.log(element.status);
+
+        });
+        //console.log("docs");//para verificar si a docs se le colocaba status: true
+        //console.log(docs);
+
+
+        res.render("products", {
+          payload: docs,
+          totalPages: totalPages,
+          prevPage: prevPage,
+          nextPage: nextPage,
+          page: page,
+          hasPrevPage: hasPrevPage,
+          hasNextPage: hasNextPage,
+          prevLink: hasPrevPage
+            ? url1
+            : null,
+          nextLink: hasNextPage
+            ? url2
+            : null,
+          //prevLink: Link directo a la página previa (null si hasPrevPage=false),
+          //nextLink:Link directo a la página siguiente (null si hasNextPage=false),
+        })
+      } catch (error) {
+        console.log(
+          "🚀 ~ file: viewsMongo.router.js:106 ~ viewsMongoRoutes ~ this.router.put ~ error:",
+          error
+        );
       }
-      let s = {};
-      if(sort){
-       s= JSON.parse(sort);       
-      }      
-      const {docs, totalPages, hasPrevPage, hasNextPage, prevPage, nextPage }=
-       await productMongoModel.paginate(q, {limit, page, sort:s, lean:true});
-       
-      //  const aux = 
-      //  await productMongoModel.paginate(q, {limit, page, sort:s, lean:true});
-      //  console.log(aux); //esto era para ver que llegaba de mongo atlas.
+      
 
-       let qStringURI = encodeURIComponent(qString);
-    
-      let url1 =`http://localhost:${PORT}/api/${API_VERSION}/views/products?limit=${limit}&page=${prevPage}&sort=${sort}&query=${qStringURI}`
-      let url2 =`http://localhost:${PORT}/api/${API_VERSION}/views/products?limit=${limit}&page=${nextPage}&sort=${sort}&query=${qStringURI}`
-
-      res.render("products",{
-        payload: docs,
-        totalPages:totalPages,
-        prevPage: prevPage,
-        nextPage: nextPage,
-        page:page,
-        hasPrevPage:hasPrevPage,
-        hasNextPage:hasNextPage,
-        prevLink: hasPrevPage
-        ? url1
-        : null,
-      nextLink: hasNextPage
-        ? url2
-        : null,
-        //prevLink: Link directo a la página previa (null si hasPrevPage=false),
-        //nextLink:Link directo a la página siguiente (null si hasNextPage=false),
-      })
+ 
     })
   }
 }
