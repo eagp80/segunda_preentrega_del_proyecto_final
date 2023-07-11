@@ -9,13 +9,13 @@
     <body>
         <h2>Ejemplos de rutas:</h2>
 
-        <h3> Para obtener todos los productos detalladamente en formato JSON: </h3>
-        <p>http://localhost:8000/api/v1/productsmongo/</p>
+        <h3> Para obtener todos los productos detalladamente en formato JSON con método GET: </h3>
+        <p>http://localhost:8000/api/v1/products/</p>
 
-        <h3>Para ver resumen de todos los carritos</h3>
+        <h3>Para ver resumen de todos los carritos con método GET</h3>
         <p> http://localhost:8000/api/v1/views/carts/</p>
 
-        <h3> Para ver paginacion de productos desde mongo atlas con page, limit, sort y query, ejemplo: </h3>
+        <h3> Para ver paginación de productos desde mongo atlas con page, limit, sort y query (método GET), ejemplo: </h3>
         <p>http://localhost:8000/api/v1/views/products?page=1&limit=3&sort={"code":1}&query={"description": "Desde fromulario con socket"}</p>
 
         {{{body}}}

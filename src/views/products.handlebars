@@ -17,13 +17,13 @@
 <div>
 {{#if hasPrevPage}}
 <p> Pagina previa es: {{prevPage}}</p>
-<a href="/api/v1/viewsmongo/productsmongopage?page={{prevPage}}"><button>Anterior</button></a>
+<a href="/api/v1/views/products?page={{prevPage}}"><button>Anterior</button></a>
 {{/if}}
 </div>
 
 <div>
 {{#if hasNextPage}}
 <p> Pagina siguiente es: {{nextPage}}</p>
-<a href="/api/v1/viewsmongo/productsmongopage?page={{nextPage}}"><button>Siguiente</button></a>
+<a href="/api/v1/views/products?page={{nextPage}}"><button>Siguiente</button></a>
 {{/if}}
 </div>

@@ -86,10 +86,10 @@ class ViewsMongoRoutes {
         hasPrevPage:hasPrevPage,
         hasNextPage:hasNextPage,
         prevLink: hasPrevPage
-        ? `http://localhost:${PORT}/api/${API_VERSION}/productsmongopage?limit=${limit}&page=${prevPage}`
+        ? `http://localhost:${PORT}/api/${API_VERSION}/products?limit=${limit}&page=${prevPage}`
         : null,
       nextLink: hasNextPage
-        ? `http://localhost:${PORT}/api/${API_VERSION}/productsmongopage?limit=${limit}&page=${nextPage}`
+        ? `http://localhost:${PORT}/api/${API_VERSION}/products?limit=${limit}&page=${nextPage}`
         : null,
         //prevLink: Link directo a la página previa (null si hasPrevPage=false),
         //nextLink:Link directo a la página siguiente (null si hasNextPage=false),

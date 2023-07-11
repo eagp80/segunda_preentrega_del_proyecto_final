@@ -8,7 +8,7 @@ const { ObjectId } = Types;
 
 
 class CartsMongoRoutes {
-  path = "/cartsmongo";
+  path = "/carts";
   router = Router();
   cartMongoManager = new CartMongoManager();
 
@@ -88,7 +88,7 @@ class CartsMongoRoutes {
     //******  POST DE /api/v1/cartsmongo/:cid/productMongo/:produtMongoId *************
     //*************************************************************************************
     //*************************************************************************************
-    this.router.post(`${this.path}/:cid/productmongo/:pid`, async (req, res) => {
+    this.router.post(`${this.path}/:cid/products/:pid`, async (req, res) => {
       // return res.json({ message: `cartsMongo POST no implementado aun` });
       try {
         // TODO: HACER VALIDACIONES 
@@ -180,7 +180,7 @@ class CartsMongoRoutes {
     //******  PUT DE /api/v1/cartsmongo/:cid/productMongo/:produtMongoId   ************
     //*************************************************************************************
     //*************************************************************************************
-    this.router.delete(`${this.path}/:cid/productmongo/:pid`, async (req, res) => {
+    this.router.delete(`${this.path}/:cid/products/:pid`, async (req, res) => {
       try{
         const { cid, pid } = req.params;
         const cart = await cartsMongoModel.findById({_id: cid});
@@ -248,7 +248,7 @@ class CartsMongoRoutes {
     //******  PUT DE /api/v1/cartsmongo/:cid/productMongo/:produtMongoId **********************************
     //*************************************************************************************
     //*************************************************************************************
-    this.router.put(`${this.path}/:cid/productmongo/:pid`, async (req, res) => {
+    this.router.put(`${this.path}/:cid/products/:pid`, async (req, res) => {
       try{
         const { cid, pid } = req.params;
 

@@ -9,7 +9,7 @@
  <h2>Ejemplos de rutas:</h2>
 
         Para obtener todos los productos detalladamemnte (formato JSON):
-        http://localhost:8000/api/v1/productsmongo/
+        http://localhost:8000/api/v1/products/
 
         Para ver resumen de todos los carritos
         http://localhost:8000/api/v1/views/carts/
@@ -33,7 +33,7 @@ Deberás entregar el proyecto que has venido armando, cambiando persistencia en 
 
 ### Formato
 
-- Link al repositorio de Github con el proyecto completo, sin la carpeta de Node_modules. ((Hecho)).
+- Link al repositorio de Github con el proyecto completo, sin la carpeta de node_modules. ((Hecho)).
 
 ### Sugerencias
 
@@ -116,7 +116,7 @@ Deberás entregar el proyecto que has venido armando, cambiando persistencia en 
 # Rutas productos con Mongo:
 
 -  Ver imagen en archivo raíz.
--  /api/v1/productsmongo/insertion GET (esta comentada)
+-  /api/v1/products/insertion GET (esta comentada)
 
 # Rutas de  views (carritos y productos) con Mongo: 
 

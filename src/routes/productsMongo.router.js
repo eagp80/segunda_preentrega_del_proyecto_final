@@ -6,7 +6,7 @@ import productsMongoData from "../db/productsMongo.js";
 import ProductMongoManager from "../dao/managers/productMongo.manager.js";
 
 class ProductsMongoRoutes {//no es un Router pero adentro tiene uno
-  path = "/productsmongo";
+  path = "/products";
   router = Router();
   productMongoManager = new ProductMongoManager();
 
