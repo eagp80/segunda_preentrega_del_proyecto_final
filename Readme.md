@@ -8,13 +8,13 @@
 ### Como usar la app:
  <h2>Ejemplos de rutas:</h2>
 
-        Para obtener todos los productos detalladamemnte (formato JSON):
+        Para obtener todos los productos detalladamemnte en formato JSON (método GET)::
         http://localhost:8000/api/v1/products/
 
-        Para ver resumen de todos los carritos
+        Para ver resumen de todos los carritos (método GET):
         http://localhost:8000/api/v1/views/carts/
 
-        Para la paginacion desde mongo atlas con limit, sort y query:
+        Para la paginación desde mongo atlas con limit, sort y query (método GET):
         http://localhost:8000/api/v1/views/products?page=1&limit=3&sort={"code":1}&query={"description": "Desde fromulario con socket"}
 ## Consigna. Se está requiriendo lo siguiente:
 Deberás entregar el proyecto que has venido armando, cambiando persistencia en base de datos, además de agregar algunos endpoints nuevos a tu ecommerce.
