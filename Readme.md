@@ -8,17 +8,14 @@
 ### Como usar la app:
  <h2>Ejemplos de rutas:</h2>
 
-        Para obtener todos los productos detalladamemnte:
+        Para obtener todos los productos detalladamemnte (formato JSON):
         http://localhost:8000/api/v1/productsmongo/
 
-        Para ver resumen de todos los productos:
-        http://localhost:8000/api/v1/views/productsmongo/
-
         Para ver resumen de todos los carritos
-        http://localhost:8000/api/v1/views/cartsmongo/
+        http://localhost:8000/api/v1/views/carts/
 
         Para la paginacion desde mongo atlas con limit, sort y query:
-        http://localhost:8000/api/v1/views/productsmongopage?page=1&limit=3&sort={"code":1}&query={"description": "Desde fromulario con socket"}
+        http://localhost:8000/api/v1/views/products?page=1&limit=3&sort={"code":1}&query={"description": "Desde fromulario con socket"}
 ## Consigna. Se está requiriendo lo siguiente:
 Deberás entregar el proyecto que has venido armando, cambiando persistencia en base de datos, además de agregar algunos endpoints nuevos a tu ecommerce.
 
@@ -114,13 +111,13 @@ Deberás entregar el proyecto que has venido armando, cambiando persistencia en 
 
 # Rutas carritos con Mongo:
 
--  /api/v1/cartsmongo  GET
--  /api/v1/cartsmongo/:cartsMongoId  GET DELETE
--  /api/v1/cartsmongo/  POST
--  /api/v1/cartsmongo/:cartsMongoId  PUT
+- ver imagen en archivo raíz.
 
 # Rutas productos con Mongo:
 
--  /api/v1/productsmongo/insertion GET
--  /api/v1/productsmongo GET POST
--  /api/v1/productsmongo/:productMongoId GET
+-  Ver imagen en archivo raíz.
+-  /api/v1/productsmongo/insertion GET (esta comentada)
+
+# Rutas de  views (carritos y productos) con Mongo: 
+
+- Ver iamgen en carpeta raíz.

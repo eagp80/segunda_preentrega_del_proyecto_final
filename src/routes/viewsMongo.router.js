@@ -17,21 +17,23 @@ class ViewsMongoRoutes {
   }
 
   initViewsMongoRoutes() {
-    this.router.get(`${this.path}/productsmongo`, async (req, res) => {
-      // let students = [
-      //   { name: "prueba", lastName: "apellidoPrueba", dni: "12345678" },
-      // ];
-      const productsMongo = await this.productMongoManager.getAllProductsMongo();
-      const mappedProductsMongo = productsMongo.map((p) => {
-        return {
-          title: p.title,
-          price: p.price,
-        };
-      });
-      res.render("productsMongo", { productsMongo: mappedProductsMongo });
-    });
 
-    this.router.get(`${this.path}/cartsmongo`, async (req, res) => {
+    //esto se usaba en una implementacion anterior, una vista simple
+    // this.router.get(`${this.path}/productsmongo2`, async (req, res) => {
+    //   // let students = [
+    //   //   { name: "prueba", lastName: "apellidoPrueba", dni: "12345678" },
+    //   // ];
+    //   const productsMongo = await this.productMongoManager.getAllProductsMongo();
+    //   const mappedProductsMongo = productsMongo.map((p) => {
+    //     return {
+    //       title: p.title,
+    //       price: p.price,
+    //     };
+    //   });
+    //   res.render("productsMongo2", { productsMongo: mappedProductsMongo });
+    // });
+
+    this.router.get(`${this.path}/carts`, async (req, res) => {
       // let courses = [];
       let i = 0;
       const cartsMongo = await this.cartsMongoManager.getAllCartsMongoPopulate();
@@ -52,10 +54,10 @@ class ViewsMongoRoutes {
       })
       console.log(JSON.stringify(cartsMongoMapped));    
       cartsMongoMapped.map(item =>  console.log("Carrito:",item.i,item.products));     
-      res.render("cartsMongo", { cartsMongo: cartsMongoMapped });
+      res.render("carts", { cartsMongo: cartsMongoMapped });
     });
 
-    this.router.get(`${this.path}/productsmongopage`, async (req, res) => {
+    this.router.get(`${this.path}/products`, async (req, res) => {
       const {page=1, limit=10, query, sort} = req.query;
       
       let q = {};
@@ -75,7 +77,7 @@ class ViewsMongoRoutes {
       //  await productMongoModel.paginate(q, {limit, page, sort:s, lean:true});
       //  console.log(aux); //esto era para ver que llegaba de mongo atlas.
 
-      res.render("productsMongoPage",{
+      res.render("products",{
         payload: docs,
         totalPages:totalPages,
         prevPage: prevPage,
