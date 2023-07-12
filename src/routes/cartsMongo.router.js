@@ -212,13 +212,18 @@ class CartsMongoRoutes {
     this.router.delete(`${this.path}/:cid`, async (req, res) => {
       try{
         const { cid} = req.params;
+        let result = await cartsMongoModel.findOneAndUpdate({_id:`${cid}`},{products:[]});
+        return res.json({ 
+          message: `cartsMongo DELETE all products sucessfully`, 
+          result:result });
+        
       } catch (error) {
         console.log(
-          "🚀 ~ file: cartsMongo.router.js:196 ~ CartsMongoRoutes ~ this.router.delete ~ error:",
+          "🚀 ~ file: cartsMongo.router.js:219 ~ CartsMongoRoutes ~ this.router.delete ~ error:",
           error
         );
       }
-      return res.json({ message: `cartsMongo DELETE no implementado aun` });
+      
     });
 
     //*************************************************************************************

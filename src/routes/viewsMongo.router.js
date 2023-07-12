@@ -41,6 +41,7 @@ class ViewsMongoRoutes {
       const cartsMongoMapped = cartsMongo.map((cartMongo, index) => {
         return {
           i: index+1,
+          id: cartMongo.id,
           // products: cartMongo.products.map(prod => prod.product.title)
 
           products: cartMongo.products.map(prod => {
@@ -72,7 +73,6 @@ class ViewsMongoRoutes {
         let sString = "";
         let url1="";
         let url2="";
-
 
         if (sort) {
           s = JSON.parse(sort);
@@ -111,7 +111,7 @@ class ViewsMongoRoutes {
         //  await productMongoModel.paginate(q, {limit, page, sort:s, lean:true});
         //  console.log(aux); //esto era para ver que llegaba de mongo atlas.
         
-        // docs.forEach(element => {//algunos documentos no tienen el status:true
+        // docs.forEach(element => {//algunos documentos no tenian el status:true, luego se lo coloqué
         //   if (element.status === false) {
         //     element.status = "false"
         //   } else {
