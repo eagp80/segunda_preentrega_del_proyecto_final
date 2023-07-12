@@ -236,9 +236,7 @@ class CartsMongoRoutes {
       try{
         const { cid} = req.params;
         const arrayItemsProducts= req.body.products;
-        console.log("arrayItemsProducts");
-        console.log(arrayItemsProducts);
-        let result = await cartsMongoModel.findOneAndUpdate({_id:`${cid}`},{products:arrayItemsProducts});
+        let result = await cartsMongoModel.findOneAndUpdate({_id:`${cid}`},{products:arrayItemsProducts}, { new: true });
         return res.json({ 
           message: `cartsMongo update array of products with PUT sucessfully`, 
           result:result });
@@ -261,16 +259,19 @@ class CartsMongoRoutes {
     //*************************************************************************************
     this.router.put(`${this.path}/:cid/products/:pid`, async (req, res) => {
       try{
-        const { cid, pid } = req.params;
-
-
+        let result = await cartsMongoModel.findOneAndUpdate(
+          { _id: req.params.cid, "products.product": req.params.pid },
+          { $set: { "products.$.quantity": req.body.quantity } },
+          { new: true });        
+      return res.json({ 
+        message: `cartsMongo PUT set quantity in product pid of cart cid`,
+        result:result });
       } catch (error) {
         console.log(
-          "🚀 ~ file: cartsMongo.router.js:234 ~ CartsMongoRoutes ~ this.router.put ~ error:",
+          "🚀 ~ file: cartsMongo.router.js:271 ~ CartsMongoRoutes ~ this.router.put ~ error:",
           error
         );
       }
-      return res.json({ message: `cartsMongo PUT no implementado aun` });
     });
   }
 }
