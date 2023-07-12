@@ -111,16 +111,16 @@ class ViewsMongoRoutes {
         //  await productMongoModel.paginate(q, {limit, page, sort:s, lean:true});
         //  console.log(aux); //esto era para ver que llegaba de mongo atlas.
         
-        docs.forEach(element => {//algunos documentos no tienen el status:true
-          if (element.status === false) {
-            element.status = "false"
-          } else {
-            element.status = "true"
-          }
-          //console.log("element.status");//para verificar si a los status:undefined se pasaban a true
-          //console.log(element.status);
-
-        });
+        // docs.forEach(element => {//algunos documentos no tienen el status:true
+        //   if (element.status === false) {
+        //     element.status = "false"
+        //   } else {
+        //     element.status = "true"
+        //   }
+        //   //console.log("element.status");//para verificar si a los status:undefined se pasaban a true
+        //   //console.log(element.status);
+        // });
+        
         //console.log("docs");//para verificar si a docs se le colocaba status: true
         //console.log(docs);
 

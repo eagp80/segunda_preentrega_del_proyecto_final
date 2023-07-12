@@ -135,6 +135,26 @@ class ProductsMongoRoutes {//no es un Router pero adentro tiene uno
       }
     });
 
+    //*** */
+    //**************SETEAR en PRODUCTS el  status true segun  CODE ************************************************
+    this.router.get(`${this.path}/statustrue/:code`, async (req, res) => {
+      try {
+        const {code}=req.params;
+        let result = await productsMongoModel.findOneAndUpdate({code:`${code}`},{category:"Física"})
+        // TODO: AGREGAR VALIDACION
+
+        return res.json({
+          message: `get productMongo setear  by code con  category: 'Física' succesfully`,
+          productsMongo: result,
+        });
+      } catch (error) {
+        console.log(
+          "🚀 ~ file: productMongo.routes.js:161 ~ ProductsMongoRoutes ~ this.router.get ~ error:",
+          error
+        );
+      }
+    });
+
   }
 }
 
