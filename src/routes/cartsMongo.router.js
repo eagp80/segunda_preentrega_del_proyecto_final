@@ -235,15 +235,21 @@ class CartsMongoRoutes {
     this.router.put(`${this.path}/:cid`, async (req, res) => {
       try{
         const { cid} = req.params;
+        const arrayItemsProducts= req.body.products;
+        console.log("arrayItemsProducts");
+        console.log(arrayItemsProducts);
+        let result = await cartsMongoModel.findOneAndUpdate({_id:`${cid}`},{products:arrayItemsProducts});
+        return res.json({ 
+          message: `cartsMongo update array of products with PUT sucessfully`, 
+          result:result });
 
 
       } catch (error) {
         console.log(
-          "🚀 ~ file: cartsMongo.router.js:215 ~ CartsMongoRoutes ~ this.router.put ~ error:",
+          "🚀 ~ file: cartsMongo.router.js:246 ~ CartsMongoRoutes ~ this.router.put ~ error:",
           error
         );
       }
-      return res.json({ message: `cartsMongo PUT no implementado aun` });
     });
 
     //*************************************************************************************
