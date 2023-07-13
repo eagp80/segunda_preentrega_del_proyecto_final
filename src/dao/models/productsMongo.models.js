@@ -21,7 +21,7 @@ const productsMongoSchema = new mongoose.Schema({
         
   },  
   price: {
-    type: String,
+    type: Number,
     required: true,
   },
   status:{
@@ -30,9 +30,9 @@ const productsMongoSchema = new mongoose.Schema({
     default: true,
   },
   stock: {
-    type: String,
+    type: Number,
     required: true,
-    default: "true",
+    default:1,
   },
   category: {
     type: String,
