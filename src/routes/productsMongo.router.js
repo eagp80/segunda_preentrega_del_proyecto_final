@@ -34,6 +34,7 @@ class ProductsMongoRoutes {//no es un Router pero adentro tiene uno
     // });
     //******este bloque se utilizo una sola vez para insertar bastantes productos que teniamos  ya ****
     
+    //**********************Obtener todos los productos en un JSON**************************** */
     this.router.get(`${this.path}`, async (req, res) => {
       try {
         // TODO: agregar validaciones
@@ -51,6 +52,8 @@ class ProductsMongoRoutes {//no es un Router pero adentro tiene uno
       }
     });
 
+    //**********************Obtener un producto por su pid******************************* */
+    //*********************************************************************************** */
     this.router.get(`${this.path}/:pid`, async (req, res) => {
       try {
         const { pid } = req.params;
@@ -71,12 +74,14 @@ class ProductsMongoRoutes {//no es un Router pero adentro tiene uno
       }
     });
 
+    //*******Crear  un producto pasando sus popiedade (clave:valor por el body desde postman********** */
+    //*********************************************************************************** */
     this.router.post(`${this.path}`, async (req, res) => {
       try {
         // TODO: HACER VALIDACIONES DEL BODY
         const productMongoBody = req.body;
 
-        // TODO REVISANDO SI EL ESTUDIANTE YA FUE CREADO ANTERIOMENTE
+        // TODO REVISANDO SI EL producto YA FUE CREADO ANTERIOMENTE
         const newProductMongo = await this.productMongoManager.createProductMongo(productMongoBody);
         if (!newProductMongo) {
           // return res.json({
@@ -99,7 +104,10 @@ class ProductsMongoRoutes {//no es un Router pero adentro tiene uno
           });
       }
     });
-//**************ORDENAR PRODUCTOS POR CODE los que tienen title:"Desde body con postman" ************************************************
+//**************Ejemplo de aggregate ORDENAR PRODUCTOS **************************
+//************que tienen description:"Desde body con postman" y *****************
+//************coincidan con title:title*******************************************
+//*************agrupar por CODE y sordenar POR CODE  " ***************************
     this.router.get(`${this.path}/order/:title`, async (req, res) => {
       try {
         const {title}=req.params;
@@ -134,9 +142,12 @@ class ProductsMongoRoutes {//no es un Router pero adentro tiene uno
         );
       }
     });
+    
+    //**************se uso para SETEAR en PRODUCTS el  status:true segun  CODE *****************************************
+    //**************para muchos productos que no tenian el campo status ************************************************
+    //*****tambien se usó para cambiar-SETEAR en PRODUCTS el category:"Matemáticas"  segun  CODE *******************
+    //******* tambien se usó para cambiar-SETEAR en PRODUCTS el category:"Física" segun  CODE***************************
 
-    //*** */
-    //**************SETEAR en PRODUCTS el  status true segun  CODE ************************************************
     this.router.get(`${this.path}/statustrue/:code`, async (req, res) => {
       try {
         const {code}=req.params;
