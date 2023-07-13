@@ -58,6 +58,52 @@ class ViewsMongoRoutes {
       res.render("carts", { cartsMongo: cartsMongoMapped });
     });
 
+    //*************************************************************************************
+    //*************************************************************************************
+    //********** Vista de un carrito por  Id de carrito *************************************
+    //******  GET DE /api/v1/views/carts/:cid **************************************
+    //*************************************************************************************
+    //*************************************************************************************
+    this.router.get(`${this.path}/carts/:cid`, async (req, res) => {
+      try {
+        // TODO: HACER VALIDACIONES *
+        const cid=req.params.cid;
+        let cartMongoData = await this.cartsMongoManager.getCartMongoByIdPopulate(cid);//population        
+        // TODO REVISANDO SI EL CARRITO YA FUE CREADO ANTERIOMENTE        
+        if (!cartMongoData) {
+          return res.json({
+            message: `the cart by Id in Mongo Atlas not found`,
+          });
+        }//se cambio por throw,
+
+      const cartMongoMapped = cartMongoData.products.map((item, index) => {
+        return {
+          i: index+1,
+          title: item.product.title,
+          qty: item.quantity          
+          // products: cartMongo.products.map(prod => prod.product.title)
+        }
+      })
+      console.log(JSON.stringify(cartMongoMapped));    
+      cartMongoMapped.map(item2 =>  console.log("Item",item2.i,": ",item2.title,`, cantidad(${item2.qty}).`));  
+        res.render("cartbyid", { cartMongo: cartMongoMapped, id:cid});
+
+        // return res.status(201).json({
+        //   message: `cart found successfully in Mongo Atlas (with population)`,
+        //   cart: cartMongoData,
+        // });
+      } catch (error) {
+        console.log(
+          "🚀 ~ file: viewsMongo.routes.js:86 ~ viewsMongoRoutes ~ this.router.get ~ error:",
+          error
+        );
+        //recibe tambiem el catch de getCartMongoByIdPopulate 
+         return res.status(400).json({
+            message: error.message ?? error            
+          });
+        }
+    });
+
 
    //******************************************************************************* */
    //******************************************************************************* */
