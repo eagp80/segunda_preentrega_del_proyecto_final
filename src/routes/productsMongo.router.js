@@ -35,6 +35,7 @@ class ProductsMongoRoutes {//no es un Router pero adentro tiene uno
     //******este bloque se utilizo una sola vez para insertar bastantes productos que teniamos  ya ****
     
     //**********************Obtener todos los productos en un JSON**************************** */
+    //*************************************************************************************** */
     this.router.get(`${this.path}`, async (req, res) => {
       try {
         // TODO: agregar validaciones
