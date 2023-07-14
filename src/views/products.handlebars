@@ -1,7 +1,10 @@
 <H1>Lista de PRODUCTOS</H1>
 
 {{#each payload}}
-  <li>Título:   {{this.title}}. Code: {{this.code}}. Estatus: {{this.status}}. Stock: {{this.stock}}. Categoría: {{this.category}}. Precio: $ {{this.price}}. </li>
+  <li>Nombre producto:   {{this.title}}.  Code: {{this.code}}.  Estatus: {{this.status}}.  Stock: {{this.stock}}.  Categoría: {{this.category}}.   Precio: $ {{this.price}}. </li>
+  <form action="{{../cartOwn}}{{this.id}}" method="post">
+    <button type="submit">Add to cart</button>
+  </form>
 {{/each}}
 <script>
     let hasNextPage=false;

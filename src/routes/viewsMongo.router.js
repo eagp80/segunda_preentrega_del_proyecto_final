@@ -33,6 +33,13 @@ class ViewsMongoRoutes {
     //   res.render("productsMongo2", { productsMongo: mappedProductsMongo });
     // });
 
+    /*************************************************************************************
+    //*************************************************************************************
+    //********** Vista de todos los carritos  *************************************
+    //******  GET DE /api/v1/views/carts/ **************************************
+    //*************************************************************************************
+    //*************************************************************************************/
+
     this.router.get(`${this.path}/carts`, async (req, res) => {
       // let courses = [];
       let i = 0;
@@ -119,6 +126,7 @@ class ViewsMongoRoutes {
         let sString = "";
         let url1="";
         let url2="";
+        let cartOwn = `http://localhost:${PORT}/api/${API_VERSION}/carts/649dd00d2f44220462505662/products/`;
 
         if (sort) {
           s = JSON.parse(sort);
@@ -170,7 +178,6 @@ class ViewsMongoRoutes {
         //console.log("docs");//para verificar si a docs se le colocaba status: true
         //console.log(docs);
 
-
         res.render("products", {
           payload: docs,
           totalPages: totalPages,
@@ -187,6 +194,7 @@ class ViewsMongoRoutes {
             : null,
           //prevLink: Link directo a la página previa (null si hasPrevPage=false),
           //nextLink:Link directo a la página siguiente (null si hasNextPage=false),
+          cartOwn: cartOwn,
         })
       } catch (error) {
         console.log(
@@ -194,9 +202,6 @@ class ViewsMongoRoutes {
           error
         );
       }
-      
-
- 
     })
   }
 }
